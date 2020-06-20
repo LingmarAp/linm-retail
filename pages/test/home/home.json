@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "m-water-flow": "../components/waterflow/waterflow"
+  }
+}

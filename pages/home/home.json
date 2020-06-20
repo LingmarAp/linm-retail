@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "m-category-grid": "../../components/category-grid/index",
+    "m-scroll-view": "../../components/scroll-view/index",
+    "m-hot-list": "../../components/hot-list/index",
+    "m-spu-preview": "../../components/spu-preview/index"
+  }
+}

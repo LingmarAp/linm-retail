@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "m-water-flow": "../../../../miniprogram_npm/lin-ui/water-flow/index",
+    "m-grid-item": "../grid-item/grid-item"
+  }
+}

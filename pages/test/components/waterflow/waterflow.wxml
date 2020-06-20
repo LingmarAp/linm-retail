@@ -1,0 +1,4 @@
+<view>
+    <button bindtap="onBtnTap">点击</button>
+    <m-water-flow generic:l-water-flow-item="m-grid-item" column-gap="6rpx"/>
+</view>

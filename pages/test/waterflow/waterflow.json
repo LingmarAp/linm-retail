@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "water-flow": "../../miniprogram_npm/lin-ui/water-flow/index",
+    "waterflow-item": "waterflow-item/waterflow-item"
+  }
+}

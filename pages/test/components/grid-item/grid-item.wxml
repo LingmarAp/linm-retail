@@ -1,0 +1,7 @@
+<l-card full type="cover" image="{{data.img}}" l-class="life-container"
+        l-img-class="life-img" image-mode="widthFix" l-title-class="life-title" bindtap="onProductTap">
+    <view class='life-product-container'>
+        <view class='art-content'>{{data.title}}</view>
+        <text>{{data.subtitle}}</text>
+    </view>
+</l-card>

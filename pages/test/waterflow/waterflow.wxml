@@ -1,0 +1,3 @@
+<view>
+    <water-flow generic:l-water-flow-item="waterflow-item" column-gap="6rpx"/>
+</view>

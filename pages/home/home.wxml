@@ -1,0 +1,35 @@
+9<l-loadmore show="{{true}}" type="{{loadingType}}">
+    <view slot="content">
+        <image class="top-theme" mode="widthFix" src="{{themeA.entrance_img}}"></image>
+        <!--    <image class="top-theme" mode="widthFix" src="../../img/vr.png"></image>-->
+        <swiper class="swiper"
+                indicator-dots
+                autoplay
+                circular
+                indicator-active-color="#157658">
+            <block wx:for="{{bannerB.items}}" wx:key="*this">
+                <swiper-item>
+                    <image class="swiper" src="{{item.img}}"></image>
+                </swiper-item>
+            </block>
+        </swiper>
+
+        <m-category-grid grid="{{grid}}"></m-category-grid>
+        <image class="activity" src="{{activityD.entrance_img}}"></image>
+        <m-scroll-view
+                theme="{{themeE}}"
+                spu-list="{{themeESpu}}"
+                wx:if="{{themeE.online}}"></m-scroll-view>
+
+        <image class="quality" src="{{themeF.entrance_img}}"></image>
+
+        <m-hot-list banner="{{bannerG}}"></m-hot-list>
+
+        <image class="fashion" src="{{themeH.entrance_img}}"></image>
+
+        <view class="spu-bottom">
+            <image class="title-spu-bottom" src="../../img/recommend.png"></image>
+            <l-water-flow generic:l-water-flow-item="m-spu-preview"></l-water-flow>
+        </view>
+    </view>
+</l-loadmore>

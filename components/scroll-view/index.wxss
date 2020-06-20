@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 42rpx 0 34rpx 28rpx;
+    background-color: #fff;
+}
+
+.title {
+    width: 692rpx;
+    height: 90rpx;
+}
+
+.inner {
+    display: flex;
+    flex-direction: row;
+}
+
+.scroll-view {
+    display: flex;
+    flex-direction: row;
+    margin-top: 28rpx;
+}
+
+.spu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 60rpx;
+}
+
+.spu-img {
+    width: 160rpx;
+    height: 160rpx;
+}
+
+.spu-title {
+    font-size: 24rpx;
+    color: #666;
+    margin-top: 20rpx;
+/*    overflow: hidden;*/
+/*    text-overflow: ellipsis;*/
+/*    white-space: nowrap;*/
+}
+
+.price-unit {
+    font-size: 24rpx;
+}
+
+.price-value {
+    font-size: 26rpx;
+    font-weight: 800rpx;
+}
+
