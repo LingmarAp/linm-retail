@@ -4,6 +4,7 @@ import {Fence} from "./fence";
 class FenceGroup {
     spu
     skuList = []
+    fences = []
 
     constructor(spu) {
         this.spu = spu
@@ -20,7 +21,7 @@ class FenceGroup {
                 fences[currentJ] = this._createFence()
                 // fences.push(this._createFence())
             }
-            fences[currentJ].pushValueTitle(element.value)
+            // fences[currentJ].pushValueTitle(element.value)
         })
     }
 
@@ -28,13 +29,13 @@ class FenceGroup {
         const matrix = this._createMatrix(this.skuList)
         const aT = matrix.transpose()
         const fences = []
-        console.log(aT)
         aT.forEach(r => {
             const fence = new Fence(r)
             fence.init()
             fences.push(fence)
         })
-        console.log(fences)
+        this.fences = fences
+        console.log(this.fences)
     }
 
     _createFence() {
@@ -43,7 +44,7 @@ class FenceGroup {
 
     // 将每个sku的specs插入这个数组中，形成的二维数组
     // [[],[],[]]
-    // [金属灰 七龙珠 小号S]
+    // [{金属灰,...} {七龙珠,...} {小号S,...}]
     // [青芒色 灌篮高手 中号M]
     // [青芒色 圣斗士 大号L]
     // [橘黄色 七龙珠 小号S]

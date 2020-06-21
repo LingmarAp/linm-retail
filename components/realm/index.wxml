@@ -6,9 +6,11 @@
             <text></text>
         </view>
     </view>
-    <block wx:for="{{}}" wx:key="index">
-        <m-fence></m-fence>
-    </block>
+    <view>
+        <block wx:for="{{fences}}" wx:key="index">
+            <m-fence fence="{{item}}"></m-fence>
+        </block>
+    </view>
     <view>
         <text></text>
         <l-counter count="1"

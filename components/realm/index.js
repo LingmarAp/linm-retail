@@ -14,20 +14,28 @@ Component({
             if (!spu) {
                 return
             }
-            const skuList = spu.sku_list
             const fenceGroup = new FenceGroup(spu)
-            fenceGroup.initFences()
-            // fenceGroup.initFencesTransPose()
+            // fenceGroup.initFences()
+            fenceGroup.initFencesTransPose()
+            this.bindInitData(fenceGroup)
         }
     },
 
     /**
      * 组件的初始数据
      */
-    data: {},
+    data: {
+        fences: Array
+    },
 
     /**
      * 组件的方法列表
      */
-    methods: {}
+    methods: {
+        bindInitData(fenceGroup) {
+            this.setData({
+                fences: fenceGroup.fences
+            })
+        }
+    }
 })
