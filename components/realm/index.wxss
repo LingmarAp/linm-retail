@@ -1,1 +1,3 @@
-/* components/realm/index.wxss */
+.container {
+    padding-left: 30rpx;
+}

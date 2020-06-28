@@ -1,5 +1,5 @@
 .container{
-
+    border: 2rpx solid #333;
 }
 
 .inner-container {
