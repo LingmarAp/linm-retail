@@ -1,5 +1,7 @@
-<view class="container">
-    <view class="inner-container">
+<wxs src="../../wxs/cell.wxs" module="c"></wxs>
+
+<view class="container {{c.statusStyle(cell.status).outer}}">
+    <view class="inner-container {{c.statusStyle(cell.staus).inner}}">
         <text>{{cell.title}}</text>
     </view>
 </view>

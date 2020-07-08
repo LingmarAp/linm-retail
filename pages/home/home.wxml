@@ -1,4 +1,4 @@
-9<l-loadmore show="{{true}}" type="{{loadingType}}">
+<l-loadmore show="{{true}}" type="{{loadingType}}">
     <view slot="content">
         <image class="top-theme" mode="widthFix" src="{{themeA.entrance_img}}"></image>
         <!--    <image class="top-theme" mode="widthFix" src="../../img/vr.png"></image>-->

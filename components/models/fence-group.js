@@ -13,7 +13,7 @@ class FenceGroup {
 
     initFences() {
         const matrix = this._createMatrix(this.skuList)
-        const fences = []
+        // const fences = []
         let currentJ = -1
         matrix.forEach((element, i, j) => {
             if (currentJ !== j) {
@@ -23,6 +23,10 @@ class FenceGroup {
             }
             // fences[currentJ].pushValueTitle(element.value)
         })
+    }
+
+    _createFence() {
+        return new Fence()
     }
 
     initFencesTransPose() {
@@ -35,11 +39,6 @@ class FenceGroup {
             fences.push(fence)
         })
         this.fences = fences
-        console.log(this.fences)
-    }
-
-    _createFence() {
-        return new Fence()
     }
 
     // 将每个sku的specs插入这个数组中，形成的二维数组
