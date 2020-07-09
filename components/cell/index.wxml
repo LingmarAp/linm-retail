@@ -1,7 +1,7 @@
 <wxs src="../../wxs/cell.wxs" module="c"></wxs>
 
 <view class="container {{c.statusStyle(cell.status).outer}}">
-    <view class="inner-container {{c.statusStyle(cell.staus).inner}}">
+    <view bindtap="onTap" class="inner-container {{c.statusStyle(cell.status).inner}}">
         <text>{{cell.title}}</text>
     </view>
 </view>

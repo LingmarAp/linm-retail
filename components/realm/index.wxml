@@ -8,7 +8,7 @@
     </view>
     <view>
         <block wx:for="{{fences}}" wx:key="index">
-            <m-fence fence="{{item}}"></m-fence>
+            <m-fence row="{{index}}" bindcellevent="onCellTap" fence="{{item}}"></m-fence>
         </block>
     </view>
     <view>

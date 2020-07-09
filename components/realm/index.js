@@ -18,9 +18,11 @@ Component({
             const fenceGroup = new FenceGroup(spu)
             // fenceGroup.initFences()
             fenceGroup.initFencesTransPose()
-            console.log(fenceGroup)
             const judge = new Judge(fenceGroup)
 
+            this.setData({
+                judge: judge
+            })
             this.bindInitData(fenceGroup)
         }
     },
@@ -29,7 +31,8 @@ Component({
      * 组件的初始数据
      */
     data: {
-        fences: Array
+        fences: Array,
+        judge: Object
     },
 
     /**
@@ -40,6 +43,18 @@ Component({
             this.setData({
                 fences: fenceGroup.fences
             })
+        },
+
+        onCellTap(event) {
+            const judge = this.data.judge
+            const detail = event.detail
+
+            const cell = detail.cell
+            const row = detail.row
+            const column = detail.column
+
+            judge.judge(cell, row, column)
+            this.bindInitData(judge.fenceGroup)
         }
     }
 })
