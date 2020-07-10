@@ -1,14 +1,21 @@
 import {SkuCode} from "./sku-code";
 import {CellStatus} from "../../core/enum";
-import {Cell} from "./cell";
+import {Joiner} from "../../utils/joiner";
+import {SkuPending} from "./sku-pending";
 
 class Judge {
     fenceGroup
     pathDict = [] // 所有SKU可能的路径
+    skuPending
 
     constructor(fenceGroup) {
         this.fenceGroup = fenceGroup
         this._initPathDict()
+        this._initSkuPending()
+    }
+
+    _initSkuPending() {
+        this.skuPending = new SkuPending()
     }
 
     _initPathDict() {
@@ -21,24 +28,42 @@ class Judge {
     }
 
     judge(cell, row, column) {
-        this._changeCellStatus(cell, row, column)
+        this._changeCurrentCellStatus(cell, row, column)
+        this._changeOtherCellStatus(row, column)
     }
 
-    _changeCellStatus(cell, row, column) {
-        if (cell.status === CellStatus.WAITING) {
-            cell.status = CellStatus.SELECTED
-        } else if (cell.status === CellStatus.SELECTED) {
-            cell.status = CellStatus.WAITING
+    _changeCurrentCellStatus(tapCell, tapRow, tapColumn) {
+        // 1. 对当前Cell状态取反
+        // 2. 对pending进行修改（修改选中cell的集合）
+        if (tapCell.status === CellStatus.WAITING) {
+            tapCell.status = CellStatus.SELECTED
+            this.skuPending.insertCell(tapCell, tapRow)
+        } else if (tapCell.status === CellStatus.SELECTED) {
+            tapCell.status = CellStatus.WAITING
+            this.skuPending.removeCell(tapRow)
         }
 
-        this.fenceGroup.fences[row].cells[column].status = cell.status
-        // this.fenceGroup.fences.forEach(fence => {
-        //     fence.cells.forEach(c => {
-        //         if (c.id === cell.id) {
-        //             c.status = cell.status
-        //         }
-        //     })
-        // })
+        this.fenceGroup.fences[tapRow].cells[tapColumn].status = tapCell.status
+    }
+
+    _changeOtherCellStatus(tapRow, tapColumn) {
+        this.fenceGroup.eachCell((cell, currentRow, currentColumn) => {
+            const path = this._findPotentialPath(cell, currentRow, currentColumn)
+            console.log(path)
+        })
+    }
+
+    _findPotentialPath(cell, currentRow, currentColumn) {
+        const joiner = new Joiner('#')
+        for (let i = 0; i < this.fenceGroup.fences.length; i++) {
+            const selected = this.skuPending.getCellByRow(i)
+            if (currentRow === i) {
+                joiner.join(cell.getCellCode())
+            } else if (selected) {
+                joiner.join(selected.getCellCode())
+            }
+        }
+        return joiner.getStr()
     }
 }
 

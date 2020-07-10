@@ -11,22 +11,13 @@ class FenceGroup {
         this.skuList = spu.sku_list
     }
 
-    initFences() {
-        const matrix = this._createMatrix(this.skuList)
-        // const fences = []
-        let currentJ = -1
-        matrix.forEach((element, i, j) => {
-            if (currentJ !== j) {
-                currentJ = j
-                fences[currentJ] = this._createFence()
-                // fences.push(this._createFence())
+    eachCell(callback) {
+        for (let i = 0; i < this.fences.length; i++) {
+            for (let j = 0; j < this.fences[i].cells.length; j++) {
+                const cell = this.fences[i].cells[j]
+                callback(cell, i, j)
             }
-            // fences[currentJ].pushValueTitle(element.value)
-        })
-    }
-
-    _createFence() {
-        return new Fence()
+        }
     }
 
     initFencesTransPose() {
@@ -53,6 +44,24 @@ class FenceGroup {
             m.push(sku.specs)
         })
         return new Matrix(m)
+    }
+
+    _createFence() {
+        return new Fence()
+    }
+
+    initFences() {
+        const matrix = this._createMatrix(this.skuList)
+        // const fences = []
+        let currentJ = -1
+        matrix.forEach((element, i, j) => {
+            if (currentJ !== j) {
+                currentJ = j
+                fences[currentJ] = this._createFence()
+                // fences.push(this._createFence())
+            }
+            // fences[currentJ].pushValueTitle(element.value)
+        })
     }
 }
 

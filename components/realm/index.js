@@ -1,6 +1,7 @@
 // components/realm/index.js
 import {FenceGroup} from "../models/fence-group";
 import {Judge} from "../models/judge";
+import {Cell} from "../models/cell";
 
 Component({
     /**
@@ -49,7 +50,7 @@ Component({
             const judge = this.data.judge
             const detail = event.detail
 
-            const cell = detail.cell
+            const cell = new Cell(detail.cell.element, detail.cell.status) // 重新构造cell对象，这样才可以调用cell中的方法
             const row = detail.row
             const column = detail.column
 
