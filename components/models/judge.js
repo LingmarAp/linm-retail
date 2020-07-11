@@ -16,6 +16,16 @@ class Judge {
 
     _initSkuPending() {
         this.skuPending = new SkuPending()
+        // 初始化默认路径
+        const defaultSku = this.fenceGroup.getDefaultSku()
+        if (!defaultSku) {
+            return
+        }
+        this.skuPending.init(defaultSku)
+        this.skuPending.pending.forEach(cell => {
+            this.fenceGroup.setCellStatusById(cell.id, CellStatus.SELECTED)
+        })
+        this._changeOtherCellStatus()
     }
 
     _initPathDict() {
@@ -24,12 +34,12 @@ class Judge {
             // 注意这里使用concat而不是push，因为对一维数组进行匹配更方便
             this.pathDict = this.pathDict.concat(skuCode.totalSegments)
         })
-        console.log(this.pathDict)
+        // console.log(this.pathDict)
     }
 
     judge(cell, row, column) {
         this._changeCurrentCellStatus(cell, row, column)
-        this._changeOtherCellStatus(row, column)
+        this._changeOtherCellStatus()
     }
 
     _changeCurrentCellStatus(tapCell, tapRow, tapColumn) {
@@ -43,13 +53,22 @@ class Judge {
             this.skuPending.removeCell(tapRow)
         }
 
-        this.fenceGroup.fences[tapRow].cells[tapColumn].status = tapCell.status
+        this.fenceGroup.setCellStatusByAxis(tapRow, tapColumn, tapCell.status)
     }
 
-    _changeOtherCellStatus(tapRow, tapColumn) {
+    _changeOtherCellStatus() {
         this.fenceGroup.eachCell((cell, currentRow, currentColumn) => {
             const path = this._findPotentialPath(cell, currentRow, currentColumn)
-            console.log(path)
+            if (!path) {
+                return
+            }
+
+            const isInDict = this.pathDict.includes(path)
+            if (isInDict) {
+                cell.status = CellStatus.WAITING
+            } else {
+                cell.status = CellStatus.FORBIDDEN
+            }
         })
     }
 
@@ -58,6 +77,11 @@ class Judge {
         for (let i = 0; i < this.fenceGroup.fences.length; i++) {
             const selected = this.skuPending.getCellByRow(i)
             if (currentRow === i) {
+                // 如果当前cell被选中，则不寻找关于这个cell的潜在路径
+                // 因为要保存当前cell的状态
+                if (this.skuPending.isCurrentSelected(cell, i)) {
+                    return
+                }
                 joiner.join(cell.getCellCode())
             } else if (selected) {
                 joiner.join(selected.getCellCode())

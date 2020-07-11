@@ -20,6 +20,28 @@ class FenceGroup {
         }
     }
 
+    setCellStatusById(cellId, status) {
+        this.eachCell(cell => {
+            if (cellId === cell.id) {
+                cell.status = status
+            }
+        })
+    }
+
+    setCellStatusByAxis(row, column, status) {
+        this.fences[row].cells[column].status = status
+    }
+
+    getDefaultSku() {
+        const defaultSkuId = this.spu.default_sku_id
+        if (!defaultSkuId) {
+            return
+        }
+        return this.skuList.find(sku => {
+            return sku.id === defaultSkuId
+        })
+    }
+
     initFencesTransPose() {
         const matrix = this._createMatrix(this.skuList)
         const aT = matrix.transpose()
