@@ -5,6 +5,10 @@ const data = require('../data/spu')
 const spuData = data.local_spu
 
 class Spu {
+    static isNoSpec(spu) {
+        return spu.sku_list.length === 1 && spu.sku_list.specs.length === 0;
+    }
+
     static getDetail(id) {
         return Http.request({
             url: `spu/id/${id}/detail`

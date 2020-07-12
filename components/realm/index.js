@@ -2,6 +2,8 @@
 import {FenceGroup} from "../models/fence-group";
 import {Judge} from "../models/judge";
 import {Cell} from "../models/cell";
+import {Spu} from "../../models/spu";
+import boolean from "../../miniprogram_npm/lin-ui/common/async-validator/validator/boolean";
 
 Component({
     /**
@@ -16,15 +18,12 @@ Component({
             if (!spu) {
                 return
             }
-            const fenceGroup = new FenceGroup(spu)
-            // fenceGroup.initFences()
-            fenceGroup.initFencesTransPose()
-            const judge = new Judge(fenceGroup)
+            if (Spu.isNoSpec(spu)) {
+                this.processNoSpec(spu)
+            } else {
+                this.processHasSpec(spu)
+            }
 
-            this.setData({
-                judge: judge
-            })
-            this.bindInitData(fenceGroup)
         }
     },
 
@@ -33,16 +32,72 @@ Component({
      */
     data: {
         fences: Array,
-        judge: Object
+        isIntact: Boolean,
+
+        judge: Object,
+        previewImg: String,
+        title: String,
+        price: String,
+        discount_price: String,
+        stock: String,
+        noSpec: false
     },
 
     /**
      * 组件的方法列表
      */
     methods: {
-        bindInitData(fenceGroup) {
+        processNoSpec(spu) {
             this.setData({
-                fences: fenceGroup.fences
+                noSpec: true
+            })
+            this.bindSkuData(spu.sku_list[0])
+        },
+
+        processHasSpec(spu) {
+            const fenceGroup = new FenceGroup(spu)
+            // fenceGroup.initFences()
+            fenceGroup.initFencesTransPose()
+            const judge = new Judge(fenceGroup)
+            this.setData({
+                judge: judge
+            })
+
+            const defaultSku = fenceGroup.getDefaultSku()
+
+            if (defaultSku) {
+                this.bindSkuData(defaultSku)
+            } else {
+                this.bindSpuData()
+            }
+            this.bindFenceGroupData(fenceGroup)
+        },
+
+        bindSpuData() {
+            const spu = this.properties.spu
+            this.setData({
+                previewImg: spu.img,
+                title: spu.title,
+                price: spu.price,
+                discount_price: spu.discount_price,
+                isIntact: this.data.judge.isIntactPending()
+            })
+        },
+
+        bindSkuData(sku) {
+            this.setData({
+                previewImg: sku.img,
+                title: sku.title,
+                price: sku.price,
+                discount_price: sku.discount_price,
+                stock: sku.stock,
+                isIntact: this.data.judge.isIntactPending()
+            })
+        },
+
+        bindFenceGroupData(fenceGroup) {
+            this.setData({
+                fences: fenceGroup.fences,
             })
         },
 
@@ -55,7 +110,7 @@ Component({
             const column = detail.column
 
             judge.judge(cell, row, column)
-            this.bindInitData(judge.fenceGroup)
+            this.bindFenceGroupData(judge.fenceGroup)
         }
     }
 })

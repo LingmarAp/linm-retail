@@ -3,6 +3,7 @@ import {CellStatus} from "../../core/enum";
 
 class SkuPending {
     pending = []
+    size
 
     constructor() {
     }
@@ -28,13 +29,26 @@ class SkuPending {
         return this.pending[row]
     }
 
-    isCurrentSelected(cell, row) {
+    isIntact() {
+        for (let i = 0; i < this.pending.length; i++) {
+            if (this._isEmptyCell(this.pending[i])) {
+                return false
+            }
+        }
+        return true
+    }
+
+    isSelected(cell, row) {
         const selected = this.pending[row]
         if (!selected) {
             return false
         }
 
         return cell.id === selected.id
+    }
+
+    _isEmptyCell(cell) {
+        return !cell
     }
 }
 

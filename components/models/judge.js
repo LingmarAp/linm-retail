@@ -22,10 +22,14 @@ class Judge {
             return
         }
         this.skuPending.init(defaultSku)
+        this._initSelectedCell()
+        this._changeOtherCellStatus()
+    }
+
+    _initSelectedCell() {
         this.skuPending.pending.forEach(cell => {
             this.fenceGroup.setCellStatusById(cell.id, CellStatus.SELECTED)
         })
-        this._changeOtherCellStatus()
     }
 
     _initPathDict() {
@@ -79,7 +83,7 @@ class Judge {
             if (currentRow === i) {
                 // 如果当前cell被选中，则不寻找关于这个cell的潜在路径
                 // 因为要保存当前cell的状态
-                if (this.skuPending.isCurrentSelected(cell, i)) {
+                if (this.skuPending.isSelected(cell, i)) {
                     return
                 }
                 joiner.join(cell.getCellCode())
@@ -88,6 +92,10 @@ class Judge {
             }
         }
         return joiner.getStr()
+    }
+
+    isIntactPending() {
+        return this.skuPending.isIntact()
     }
 }
 
