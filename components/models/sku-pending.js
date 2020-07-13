@@ -1,5 +1,6 @@
 import {Cell} from "./cell";
 import {CellStatus} from "../../core/enum";
+import {Joiner} from "../../utils/joiner";
 
 class SkuPending {
     pending = []
@@ -27,6 +28,37 @@ class SkuPending {
 
     getCellByRow(row) {
         return this.pending[row]
+    }
+
+    getSkuCode(currentSpu) {
+        const joiner = new Joiner('#')
+        this.pending.forEach(cell => {
+            if (!cell) {
+                return
+            }
+            const cellCode = cell.getCellCode()
+            joiner.join(cellCode)
+        })
+        const specCode = joiner.getStr()
+        return currentSpu.id + '$' + specCode
+    }
+
+    getCurrentSpecValues() {
+        return this.pending.map(cell => {
+            return cell ? cell.title : null
+        })
+    }
+
+    getMissingSpecKeysIndex() {
+        const keysIndex = []
+        for (let i = 0; i < this.pending.length; i++) {
+            const cell = this.pending[i]
+            if (!cell) {
+                keysIndex.push(i)
+            }
+        }
+
+        return keysIndex
     }
 
     isIntact() {

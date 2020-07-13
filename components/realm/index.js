@@ -3,7 +3,6 @@ import {FenceGroup} from "../models/fence-group";
 import {Judge} from "../models/judge";
 import {Cell} from "../models/cell";
 import {Spu} from "../../models/spu";
-import boolean from "../../miniprogram_npm/lin-ui/common/async-validator/validator/boolean";
 
 Component({
     /**
@@ -70,6 +69,7 @@ Component({
             } else {
                 this.bindSpuData()
             }
+            this.bindTipData()
             this.bindFenceGroupData(fenceGroup)
         },
 
@@ -79,8 +79,7 @@ Component({
                 previewImg: spu.img,
                 title: spu.title,
                 price: spu.price,
-                discount_price: spu.discount_price,
-                isIntact: this.data.judge.isIntactPending()
+                discount_price: spu.discount_price
             })
         },
 
@@ -90,14 +89,21 @@ Component({
                 title: sku.title,
                 price: sku.price,
                 discount_price: sku.discount_price,
-                stock: sku.stock,
-                isIntact: this.data.judge.isIntactPending()
+                stock: sku.stock
             })
         },
 
         bindFenceGroupData(fenceGroup) {
             this.setData({
                 fences: fenceGroup.fences,
+            })
+        },
+
+        bindTipData() {
+            this.setData({
+                isIntact: this.data.judge.isIntactPending(),
+                currentValues: this.data.judge.getCurrentSpecValue(),
+                missingKeys: this.data.judge.getMissingSpecKeys()
             })
         },
 
@@ -110,7 +116,13 @@ Component({
             const column = detail.column
 
             judge.judge(cell, row, column)
+            const determinateSku = judge.getDeterminateSku()
+            if (determinateSku) {
+                this.bindSkuData(determinateSku)
+            }
+
             this.bindFenceGroupData(judge.fenceGroup)
+            this.bindTipData()
         }
     }
 })

@@ -97,6 +97,33 @@ class Judge {
     isIntactPending() {
         return this.skuPending.isIntact()
     }
+
+    getDeterminateSku() {
+        const code = this.skuPending.getSkuCode(this.fenceGroup.spu)
+        return this.fenceGroup.getSku(code)
+    }
+
+    getCurrentSpecValue() {
+        return this.skuPending.getCurrentSpecValues()
+    }
+
+    getMissingSpecKeys() {
+        return this.skuPending.getMissingSpecKeysIndex().map(index => {
+            return this.fenceGroup.fences[index].title
+        })
+    }
+
+    getTip() {
+        if (this.isIntactPending()) {
+            return this.skuPending.getCurrentSpecValues()
+        } else {
+            const keysIndex = this.skuPending.getMissingSpecKeysIndex()
+            const specKeys = this.fenceGroup.fences.find((cell, i) => {
+                return keysIndex.includes(i)
+            })
+            console.log(specKeys)
+        }
+    }
 }
 
 export {

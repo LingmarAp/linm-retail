@@ -32,6 +32,10 @@ class FenceGroup {
         this.fences[row].cells[column].status = status
     }
 
+    getSku(skuCode) {
+        return this.skuList.find(sku => sku.code === skuCode)
+    }
+
     getDefaultSku() {
         const defaultSkuId = this.spu.default_sku_id
         if (!defaultSkuId) {
