@@ -1,4 +1,4 @@
-import {Spu} from "../../models/spu";
+import {ShoppingWay} from "../../core/enum";
 
 const detailData = require("../../data/detail")
 
@@ -8,7 +8,8 @@ Page({
      * 页面的初始数据
      */
     data: {
-        spu: null
+        spu: null,
+        showRealm: false
     },
 
     /**
@@ -18,9 +19,34 @@ Page({
         const pid = options.pid
         // TODO 模拟网络加载
         // const spu = await Spu.getDetail(pid)
-        const spu = detailData.local_detail
         this.setData({
-            spu: spu
+            spu: detailData.local_detail
+        })
+    },
+
+    onGotoHome(event) {
+        this.switchTab({
+            url: "pages/home/home"
+        })
+    },
+
+    onGotoCart(event) {
+        this.switchTab({
+            url: "pages/cart/cart"
+        })
+    },
+
+    onAddToCart(event) {
+        this.setData({
+            showRealm: true,
+            orderWay: ShoppingWay.CART
+        })
+    },
+
+    onBuy(event) {
+        this.setData({
+            showRealm: true,
+            orderWay: ShoppingWay.BUY
         })
     },
 

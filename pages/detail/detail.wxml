@@ -1,1 +1,9 @@
-<m-realm spu="{{spu}}"></m-realm>
+<l-popup show="{{showRealm}}" content-align="bottom">
+    <m-realm orderWay="{{orderWay}}" spu="{{spu}}"></m-realm>
+</l-popup>
+
+<m-tabBar class="tabBar"
+          bind:gotoHome="onGotoHome"
+          bind:gotoCart="onGotoCart"
+          bind:addToHome="onAddToCart"
+          bind:buy="onBuy"></m-tabBar>

@@ -1,1 +1,5 @@
 /* pages/detail/detail.wxss */
+.tabBar {
+    position: fixed;
+    bottom: 0rpx;
+}

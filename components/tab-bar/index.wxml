@@ -1,0 +1,21 @@
+<view class="container">
+    <view class="icons">
+        <view bindtap="onGotoHome">
+            <l-icon name="left" size="44" color="#157658"></l-icon>
+            <text>首页</text>
+        </view>
+        <view bindtap="onGotoCart">
+            <l-badge value="7" shape="circle">
+                <l-icon name="cart" size="46" color="#157658"></l-icon>
+            </l-badge>
+            <text>购物车</text>
+        </view>
+    </view>
+
+    <view class="cart btn-font" bindtap="onAddToCart">
+        <text>加入购物车</text>
+    </view>
+    <view class="buy btn-font" bindtap="onBuy">
+        <text>立即购买</text>
+    </view>
+</view>

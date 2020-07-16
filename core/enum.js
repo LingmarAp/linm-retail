@@ -4,6 +4,12 @@ const CellStatus = {
     SELECTED: "selected"
 }
 
+const ShoppingWay = {
+    BUY : "buy",
+    CART : "cart"
+}
+
 export {
-    CellStatus
+    CellStatus,
+    ShoppingWay
 }

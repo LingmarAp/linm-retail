@@ -1,0 +1,12 @@
+.all-background {
+    background-color: transparent !important;
+}
+
+.container {
+    border: 3rpx solid #157658 !important;
+    height: 48rpx !important;
+}
+
+.symbol {
+    color: #157658 !important;
+}

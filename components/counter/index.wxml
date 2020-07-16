@@ -1,0 +1,7 @@
+<!--components/counter/index.wxml-->
+<l-counter
+        l-symbol-class="symbol"
+        bind:linout="onOverflowEvent"
+        count="{{count}}"
+        min="{{min}}"
+        max="{{max}}"/>

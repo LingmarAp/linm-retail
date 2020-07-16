@@ -53,9 +53,22 @@ class FenceGroup {
         aT.forEach(r => {
             const fence = new Fence(r)
             fence.init()
+            if(this._hasSketchFence() && this._isSketchFence(fence.id)) {
+                fence.setSketchFence(this.skuList)
+                console.log(this.skuList)
+            }
             fences.push(fence)
         })
         this.fences = fences
+        console.log(fences)
+    }
+
+    _hasSketchFence() {
+        return !!this.spu.sketch_spec_id
+    }
+
+    _isSketchFence(fenceId) {
+        return fenceId === this.spu.sketch_spec_id
     }
 
     // 将每个sku的specs插入这个数组中，形成的二维数组

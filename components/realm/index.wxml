@@ -1,57 +1,61 @@
 <wxs src="../../wxs/price.wxs" module="p"></wxs>
 
-<view class="container">
-    <view class="sku-preview">
-        <image class="sku-img" src="{{previewImg}}"></image>
-        <view class="sku-description">
-            <text class="title">{{title}}</text>
-            <view class="price-row">
-                <l-price
-                        color="#157658"
-                        value-size="28"
-                        unit-size="20"
-                        autofix=""
-                        value="{{p.mainPrice(price, discount_price).price}}"></l-price>
-                <block wx:if="{{p.slashedPrice(price, discount_price).display}}">
+<scroll-view class="container" scroll-y="true">
+    <view class="inner-container">
+        <view class="sku-preview">
+            <image class="sku-img" src="{{previewImg}}"></image>
+            <view class="sku-description">
+                <text class="title">{{title}}</text>
+                <view class="price-row">
                     <l-price
-                            l-class="discount-price"
-                            deleted
-                            color="#999"
-                            size="26"
-                            value="{{p.slashedPrice(price, discount_price).price}}"></l-price>
-                </block>
+                            color="#157658"
+                            value-size="28"
+                            unit-size="20"
+                            autofix=""
+                            value="{{p.mainPrice(price, discount_price).price}}"></l-price>
+                    <block wx:if="{{p.slashedPrice(price, discount_price).display}}">
+                        <l-price
+                                l-class="discount-price"
+                                deleted
+                                color="#999"
+                                size="26"
+                                value="{{p.slashedPrice(price, discount_price).price}}"></l-price>
+                    </block>
 
-                <view wx:if="{{stock && stock > 10}}" class="stock">库存:{{stock}}件</view>
-                <view wx:if="{{stock && stock < 10 && stock != 0}}" class="stock-pinch">仅剩:{{stock}}件</view>
-            </view>
-            <view wx:if="{{!noSpec}}" class="sku-pending">
-                <view wx:if="{{!isIntact}}">
-                    <text>请选择:</text>
-                    <text>{{missingKeys}}</text>
+                    <view wx:if="{{stock && stock > 10}}" class="stock">库存:{{stock}}件</view>
+                    <view wx:if="{{stock && stock < 10 && stock != 0}}" class="stock-pinch">仅剩:{{stock}}件</view>
                 </view>
-                <view wx:else>
-                    <text>已选择:</text>
-                    <text>{{currentValues}}</text>
+                <view wx:if="{{!noSpec}}" class="sku-pending">
+                    <view wx:if="{{!isIntact}}">
+                        <text>请选择:</text>
+                        <text>{{missingKeys}}</text>
+                    </view>
+                    <view wx:else>
+                        <text>已选择:</text>
+                        <text>{{currentValues}}</text>
+                    </view>
                 </view>
             </view>
         </view>
-    </view>
 
-    <view class="hr"></view>
+        <view class="hr"></view>
 
-    <view>
-        <block wx:for="{{fences}}" wx:key="index">
-            <m-fence row="{{index}}" bindcellevent="onCellTap" fence="{{item}}"></m-fence>
-        </block>
+        <view>
+            <block wx:for="{{fences}}" wx:key="index">
+                <m-fence row="{{index}}" bindcellevent="onCellTap" fence="{{item}}"></m-fence>
+            </block>
+        </view>
+        <view class="counter-container">
+            <text>购买数量:</text>
+            <m-counter bind:lintap="onSelectCount"></m-counter>
+        </view>
     </view>
-    <view>
-        <text></text>
-        <l-counter count="1"
-                   min="1"
-                   max="10"></l-counter>
-    </view>
-    <view>
-        <button>加入购物车</button>
-        <button>立即购买</button>
-    </view>
+</scroll-view>
+
+<view wx:if="{{!outStock}}" class="bottom-btn">
+    <text wx:if="{{orderWay == 'cart'}}">加入购物车</text>
+    <text wx:else>立即购买</text>
+</view>
+<view wx:else class="bottom-btn out-stock ">
+    <text>暂时缺货</text>
 </view>

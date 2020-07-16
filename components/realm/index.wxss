@@ -1,7 +1,13 @@
 .container {
     box-sizing: border-box;
-    padding: 30rpx;
     background-color: #fff;
+    max-height: 1300rpx;
+    min-height: 600rpx;
+    margin-bottom: 100rpx;
+}
+
+.inner-container {
+    padding: 30rpx 30rpx 0 30rpx;
 }
 
 .sku-preview {
@@ -60,4 +66,38 @@
     margin-left: 30rpx;
     font-size: 20rpx;
     color: #D20109;
+}
+
+.counter-container {
+    margin-top: 34rpx;
+    margin-bottom: 300rpx;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.counter-container text {
+    color: #555;
+    font-size: 24rpx;
+}
+
+.bottom-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100rpx;
+    background-color: #333;
+    position: absolute;
+    bottom: 0;
+}
+
+.bottom-btn text {
+    color: #fff;
+}
+
+.out-stock {
+    background-color: #DCEBE6;
 }

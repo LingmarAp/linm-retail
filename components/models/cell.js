@@ -6,6 +6,8 @@ class Cell {
     status = CellStatus.WAITING
     element
 
+    skuImg
+
     constructor() {
         const element = arguments[0]
         this.id = element.value_id

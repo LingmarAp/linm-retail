@@ -143,7 +143,7 @@ const local_detail = {
                 }
             ],
             "code": "2$1-44#3-9#4-14",
-            "stock": 0
+            "stock": 7
         }
     ],
     "spu_img_list": [

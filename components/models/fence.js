@@ -18,6 +18,20 @@ class Fence {
         this._initCells()
     }
 
+    setSketchFence(skuList) {
+        this.cells.forEach(cell => {
+            this._setCellSkuImg(cell, skuList)
+        })
+    }
+
+    _setCellSkuImg(cell, skuList) {
+        const code = cell.getCellCode()
+        const matchedSku = skuList.find(sku => sku.code.includes(code))
+        if (matchedSku) {
+            cell.skuImg = matchedSku.img
+        }
+    }
+
     _initCells() {
         this.specs.forEach(element => {
             const existed = this.cells.some(c => {
