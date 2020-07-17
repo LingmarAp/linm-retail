@@ -55,12 +55,10 @@ class FenceGroup {
             fence.init()
             if(this._hasSketchFence() && this._isSketchFence(fence.id)) {
                 fence.setSketchFence(this.skuList)
-                console.log(this.skuList)
             }
             fences.push(fence)
         })
         this.fences = fences
-        console.log(fences)
     }
 
     _hasSketchFence() {

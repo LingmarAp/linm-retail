@@ -24,7 +24,7 @@ Component({
             } else {
                 this.processHasSpec(spu)
             }
-
+            this.triggerSpecEvent()
         }
     },
 
@@ -77,6 +77,22 @@ Component({
             }
             this.bindTipData()
             this.bindFenceGroupData(fenceGroup)
+        },
+
+        triggerSpecEvent() {
+            const isNoSpec = Spu.isNoSpec(this.properties.spu)
+            if (isNoSpec) {
+                this.triggerEvent("spec-change", {
+                    noSpec: isNoSpec
+                })
+            } else {
+                this.triggerEvent("spec-change", {
+                    noSpec: isNoSpec,
+                    isIntact: this.data.judge.isIntactPending(),
+                    currentValues: this.data.judge.getCurrentSpecValue(),
+                    missingKeys: this.data.judge.getMissingSpecKeys()
+                })
+            }
         },
 
         bindSpuData() {
@@ -158,6 +174,8 @@ Component({
 
             this.bindFenceGroupData(judge.fenceGroup)
             this.bindTipData()
+
+            this.triggerSpecEvent()
         }
     }
 })

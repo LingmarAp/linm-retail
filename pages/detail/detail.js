@@ -1,4 +1,5 @@
 import {ShoppingWay} from "../../core/enum";
+import {SaleExplain} from "../../models/sale-explain";
 
 const detailData = require("../../data/detail")
 
@@ -9,6 +10,7 @@ Page({
      */
     data: {
         spu: null,
+        explains: null,
         showRealm: false
     },
 
@@ -19,8 +21,12 @@ Page({
         const pid = options.pid
         // TODO 模拟网络加载
         // const spu = await Spu.getDetail(pid)
+        const explains = await SaleExplain.getFixed()
+        console.log(explains)
+
         this.setData({
-            spu: detailData.local_detail
+            spu: detailData.local_detail,
+            explains: explains
         })
     },
 
@@ -48,6 +54,10 @@ Page({
             showRealm: true,
             orderWay: ShoppingWay.BUY
         })
+    },
+
+    onSpecChangeEvent(event) {
+        this.setData(event.detail)
     },
 
     /**

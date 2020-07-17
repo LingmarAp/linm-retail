@@ -1,5 +1,154 @@
 /* pages/detail/detail.wxss */
+.container {
+    /*height: 1100rpx;*/
+    overflow: auto;
+}
+
+/*.inner-container {*/
+/*    height: 99%;*/
+/*    !*overflow: auto;*!*/
+/*}*/
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    color: transparent;
+}
+
+.top {
+    width: 100%;
+    height: 680rpx;
+}
+
 .tabBar {
     position: fixed;
     bottom: 0rpx;
+}
+
+.left {
+    /*让所有弹性盒模型对象的子元素都有相同的长度，
+    且忽略它们内部的内容*/
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.spu-description-container {
+    width: 100%;
+    /*采用border-box改变盒模型计算width和height的方式
+    修改后：它们将包括border和padding的宽度*/
+    box-sizing: border-box;
+    background-color: #fff;
+    padding: 34rpx 30rpx 26rpx 30rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.tags {
+    display: flex;
+    flex-direction: row;
+}
+
+.l-tag {
+    margin-right: 6rpx !important;
+}
+
+.subtitle {
+    color: #999;
+    font-size: 28rpx;
+    font-weight: 400;
+    margin-top: 40rpx;
+    margin-bottom: 16rpx;
+}
+
+.price-row {
+    display: flex;
+    /*there*/
+    align-items: baseline;
+}
+
+.l-unit-price {
+    margin-right: 14rpx !important;
+}
+
+.discount-price {
+    margin-left: 20rpx;
+    margin-right: 80rpx;
+}
+
+.discount-tag {
+    position: relative !important;
+    bottom: 4rpx;
+    width: 50rpx;
+    border-radius: 20rpx !important;
+}
+
+.right {
+    margin-right: 20rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 75rpx;
+    height: 120rpx;
+    border-left: 2px dashed #F5F5F5;
+}
+
+.share-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #DCEBE6;
+    width: 50rpx;
+    height: 120rpx;
+}
+
+.share-button text {
+    font-size: 20rpx;
+    color: #157658;
+}
+
+.sku-pending {
+    box-sizing: border-box;
+    width: 100%;
+    height: 80rpx;
+    background-color: #fff;
+    margin: 10rpx 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 28rpx;
+    color: #333;
+    padding: 0 30rpx;
+}
+
+.sku-pending view > text:first-child {
+    font-size: 24rpx;
+    color: #999;
+}
+.sku-pending view > text:nth-child(2) {
+    font-size: 24rpx;
+    color: #157658;
+}
+
+.explain {
+    margin-top: 10rpx;
+    background-color: #fff;
+    padding-bottom: 20rpx;
+    padding-top: 20rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail_img_container {
+    margin-bottom: 100rpx;
+}
+
+.detail-img {
+    width: 100%;
+    display: flex;
 }

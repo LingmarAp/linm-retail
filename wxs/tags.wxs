@@ -1,0 +1,7 @@
+function split(tags) {
+    return tags.split('$')
+}
+
+module.exports = {
+    split: split
+}
