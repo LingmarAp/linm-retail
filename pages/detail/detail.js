@@ -22,11 +22,24 @@ Page({
         // TODO 模拟网络加载
         // const spu = await Spu.getDetail(pid)
         const explains = await SaleExplain.getFixed()
-        console.log(explains)
+        // this.initWindowHeight();
 
         this.setData({
             spu: detailData.local_detail,
             explains: explains
+        })
+    },
+
+    initWindowHeight() {
+        const that = this
+        wx.getSystemInfo({
+            success (res) {
+                // console.log(res.windowHeight)
+                // console.log(res.screenHeight)
+                that.setData({
+                    windowHeight: res.windowHeight
+                })
+            }
         })
     },
 

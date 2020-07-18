@@ -1,13 +1,8 @@
 /* pages/detail/detail.wxss */
 .container {
-    /*height: 1100rpx;*/
     overflow: auto;
+    height: calc(100vh - 100rpx);
 }
-
-/*.inner-container {*/
-/*    height: 99%;*/
-/*    !*overflow: auto;*!*/
-/*}*/
 
 ::-webkit-scrollbar {
     width: 0;
@@ -142,10 +137,6 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-}
-
-.detail_img_container {
-    margin-bottom: 100rpx;
 }
 
 .detail-img {

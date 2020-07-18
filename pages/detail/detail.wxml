@@ -2,105 +2,103 @@
 <wxs src="../../wxs/price.wxs" module="p"></wxs>
 
 <view class="container">
-    <view class="inner-container">
-        <!--轮播图-->
-        <view>
-            <swiper class="top"
-                    autoplay
-                    indicator-dots>
-                <block wx:for="{{spu.spu_img_list}}" wx:key="index">
-                    <swiper-item>
-                        <image class="top" mode="caleToFill" src="{{item.img}}"></image>
-                    </swiper-item>
-                </block>
-            </swiper>
-        </view>
-
-        <!--详情界面-->
-        <view class="spu-description-container">
-            <view class="left">
-                <text class="title">{{spu.title}}</text>
-                <view class="tags">
-                    <block wx:for="{{t.split(spu.tags)}}" wx:key="index">
-                        <l-tag
-                                type="reading"
-                                bgColor="#DCEBE6"
-                                fontColor="#157658"
-                                size="super-mini"
-                                l-class="l-tag">
-                            {{item}}
-                        </l-tag>
-                    </block>
-                </view>
-                <text class="subtitle">{{spu.subtitle}}</text>
-                <view class="price-row">
-                    <l-price l-unit-price="l-unit-price"
-                             color="#157658"
-                             value-size="28"
-                             unit-size="20"
-                             autofix=""
-                             value="{{p.mainPrice(spu.price, spu.discount_price).price}}"></l-price>
-                    <l-price wx:if="{{p.slashedPrice(spu.price, spu.discount_price).display}}"
-                             l-class="discount-price"
-                             deleted
-                             color="#999"
-                             size="26"
-                             value="{{p.slashedPrice(spu.price, spu.discount_price).price}}"></l-price>
-                    <l-tag l-class="discount-tag"
-                           wx:if="{{p.slashedPrice(spu.price, spu.discount_price).display}}"
-                           type="reading"
-                           bgColor="#C93756"
-                           size="super-mini">
-                        折扣
-                    </l-tag>
-                </view>
-            </view>
-
-            <view class="right">
-                <l-button special="{{true}}" open-type="share">
-                    <view class="share-button">
-                        <l-icon name="share" color="#157658" size="24"></l-icon>
-                        <text>分</text>
-                        <text>享</text>
-                    </view>
-                </l-button>
-            </view>
-        </view>
-
-        <view bindtap="onAddToCart" wx:if="{{!noSpec}}" class="sku-pending">
-            <view wx:if="{{!isIntact}}">
-                <text>请选择:</text>
-                <text>{{missingKeys}}</text>
-            </view>
-            <view wx:else>
-                <text>已选择:</text>
-                <text>{{currentValues}}</text>
-            </view>
-            <view>
-                <l-icon name="right" color="#157658" size="24"></l-icon>
-            </view>
-        </view>
-
-        <view class="explain">
-            <m-sale-explain texts="{{explains}}"></m-sale-explain>
-        </view>
-
-        <view class="detail_img_container" scroll-y="{{true}}">
-            <block wx:for="{{spu.spu_detail_img_list}}" wx:key="index">
-                <image mode="widthFix" class="detail-img" src="{{item.img}}"></image>
+    <!--轮播图-->
+    <view>
+        <swiper class="top"
+                autoplay
+                indicator-dots>
+            <block wx:for="{{spu.spu_img_list}}" wx:key="index">
+                <swiper-item>
+                    <image class="top" mode="caleToFill" src="{{item.img}}"></image>
+                </swiper-item>
             </block>
+        </swiper>
+    </view>
+
+    <!--详情界面-->
+    <view class="spu-description-container">
+        <view class="left">
+            <text class="title">{{spu.title}}</text>
+            <view class="tags">
+                <block wx:for="{{t.split(spu.tags)}}" wx:key="index">
+                    <l-tag
+                            type="reading"
+                            bgColor="#DCEBE6"
+                            fontColor="#157658"
+                            size="super-mini"
+                            l-class="l-tag">
+                        {{item}}
+                    </l-tag>
+                </block>
+            </view>
+            <text class="subtitle">{{spu.subtitle}}</text>
+            <view class="price-row">
+                <l-price l-unit-price="l-unit-price"
+                         color="#157658"
+                         value-size="28"
+                         unit-size="20"
+                         autofix=""
+                         value="{{p.mainPrice(spu.price, spu.discount_price).price}}"></l-price>
+                <l-price wx:if="{{p.slashedPrice(spu.price, spu.discount_price).display}}"
+                         l-class="discount-price"
+                         deleted
+                         color="#999"
+                         size="26"
+                         value="{{p.slashedPrice(spu.price, spu.discount_price).price}}"></l-price>
+                <l-tag l-class="discount-tag"
+                       wx:if="{{p.slashedPrice(spu.price, spu.discount_price).display}}"
+                       type="reading"
+                       bgColor="#C93756"
+                       size="super-mini">
+                    折扣
+                </l-tag>
+            </view>
         </view>
 
-        <!--可弹出的sku选择器-->
-        <l-popup show="{{showRealm}}" content-align="bottom">
-            <m-realm bind:spec-change="onSpecChangeEvent" orderWay="{{orderWay}}" spu="{{spu}}"></m-realm>
-        </l-popup>
-
-        <!--底部的购买栏-->
-        <m-tabBar class="tabBar"
-                  bind:gotoHome="onGotoHome"
-                  bind:gotoCart="onGotoCart"
-                  bind:addToHome="onAddToCart"
-                  bind:buy="onBuy"></m-tabBar>
+        <view class="right">
+            <l-button special="{{true}}" open-type="share">
+                <view class="share-button">
+                    <l-icon name="share" color="#157658" size="24"></l-icon>
+                    <text>分</text>
+                    <text>享</text>
+                </view>
+            </l-button>
+        </view>
     </view>
+
+    <view bindtap="onAddToCart" wx:if="{{!noSpec}}" class="sku-pending">
+        <view wx:if="{{!isIntact}}">
+            <text>请选择:</text>
+            <text>{{missingKeys}}</text>
+        </view>
+        <view wx:else>
+            <text>已选择:</text>
+            <text>{{currentValues}}</text>
+        </view>
+        <view>
+            <l-icon name="right" color="#157658" size="24"></l-icon>
+        </view>
+    </view>
+
+    <view class="explain">
+        <m-sale-explain texts="{{explains}}"></m-sale-explain>
+    </view>
+
+    <view class="detail_img_container" scroll-y="{{true}}">
+        <block wx:for="{{spu.spu_detail_img_list}}" wx:key="index">
+            <image mode="widthFix" class="detail-img" src="{{item.img}}"></image>
+        </block>
+    </view>
+
+    <!--可弹出的sku选择器-->
+    <l-popup show="{{showRealm}}" content-align="bottom">
+        <m-realm bind:spec-change="onSpecChangeEvent" orderWay="{{orderWay}}" spu="{{spu}}"></m-realm>
+    </l-popup>
+
+    <!--底部的购买栏-->
+    <m-tabBar class="tabBar"
+              bind:gotoHome="onGotoHome"
+              bind:gotoCart="onGotoCart"
+              bind:addToHome="onAddToCart"
+              bind:buy="onBuy"></m-tabBar>
 </view>
