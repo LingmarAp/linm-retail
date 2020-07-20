@@ -39,8 +39,8 @@ Page({
 
     async initBottomSpuList() {
         const paging = new Paging({
-            url: ''
-        })
+            url: 'spu/latest'
+        }, 5)
         this.setData({
             paging
         })

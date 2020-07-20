@@ -1,66 +1,90 @@
 // pages/search/search.js
+import {Tag} from "../../models/tag";
+import {HistoryKeyword} from "../../models/history-keyword";
+import {Search} from "../../models/search";
+import {showToast} from "../../utils/ui";
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
+    data: {
+        history: null,
+        historyTags: [],
+        hotTags: []
+    },
 
-  },
+    onLoad: async function (options) {
+        const hotTags = await Tag.getSearchTags()
+        const history = new HistoryKeyword()
+        const historyTags = history.get()
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+        this.bindHistoryTags(historyTags)
+        this.setData({
+            hotTags: hotTags,
+            history: history,
+        })
+    },
 
-  },
+    async onSearch(event) {
+        this.setData({
+            search: true,
+            items: []
+        })
+        const keyword = event.detail.value || event.detail.name
+        if (!keyword) {
+            showToast('请输入关键字')
+            return
+        }
+        this.data.history.save(keyword)
+        this.bindHistoryTags(this.data.history.get())
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+        const paging = Search.search(keyword)
+        wx.lin.showLoading({
+            color: '#157658',
+            type: "flash",
+            fullScreen: true
+        })
+        const data = await paging.next()
+        wx.lin.hideLoading()
+        this.bindItems(data.items)
+    },
 
-  },
+    onCancel(event) {
+        this.setData({
+            search: false,
+            items: []
+        })
+    },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+    onDeleteHistory(event) {
+        this.data.history.clear()
 
-  },
+        const historyTags = this.data.history.get()
+        this.setData({
+            historyTags
+        })
+    },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
+    bindItems(items) {
+        this.setData({
+            items: items
+        })
+    },
 
-  },
+    bindHistoryTags(tags) {
+        this.setData({
+            historyTags: tags
+        })
+    },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
+    onPullDownRefresh: function () {
 
-  },
+    },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
+    onReachBottom: function () {
 
-  },
+    },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
+    onShareAppMessage: function () {
 
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
+    }
 })

@@ -43,9 +43,9 @@ class Paging {
 
     async _actualGetData() {
         const req = this._getCurrentReq()
-        // const page = await Http.request(req)
-        // TODO 模拟网络加载
-        const page = Spu.getLocalSpu(this.start, this.count)
+        const page = await Http.request(req)
+        // // 模拟网络加载
+        // const page = Spu.getLocalSpu(this.start, this.count)
         if (!page) {
             return null
         }

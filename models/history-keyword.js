@@ -21,14 +21,14 @@ class HistoryKeyword {
         // 作为搜索历史应该注意的几个点：
         // 1. 元素不能重复
         // 2. 元素添加有上限，且超出上限后早期的元素要被删除（队列）
-        const isExist = this.keywords.some(keyword)
+        const isExist = this.keywords.some(k => k === keyword)
         if (isExist) {
             return
         }
         if (this.keywords.length >= this.HISTORY_MAX_COUNT) {
             this.keywords.pop()
         }
-        keyword.unshift(keyword)
+        this.keywords.unshift(keyword)
         this._refreshCache()
     }
 
@@ -48,4 +48,8 @@ class HistoryKeyword {
     _getCache() {
         return wx.getStorageSync(this.HISTORY_KEY)
     }
+}
+
+export {
+    HistoryKeyword
 }
